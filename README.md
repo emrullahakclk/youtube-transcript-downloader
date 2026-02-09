@@ -6,7 +6,8 @@ A powerful Python toolkit for downloading YouTube video transcripts from playlis
 
 - **📥 Bulk Transcript Download**: Download transcripts from entire YouTube playlists
 - **🛡️ Anti-Ban Protection**: Built-in delays, randomization, and rate limit handling
-- **🔄 Resume Support**: Automatically resumes from where it left off
+- **🔄 Smart Resume**: Only successful downloads are marked as complete - failed ones automatically retry
+- **📋 Auto Playlist Export**: Automatically saves playlist metadata for future reference
 - **🔍 Smart Matching**: Compare downloaded files against playlist to find missing videos
 - **📝 Markdown Output**: Clean, timestamped markdown files
 - **🍪 Cookie Support**: Use browser cookies for age-restricted or private content
@@ -46,20 +47,14 @@ python transcript_downloader.py
 
 ### 2. Check for Missing Transcripts
 
-First, create a `playlist.json` file with your video list:
-```json
-[
-    {
-        "Title": "Video Title Here",
-        "Video url": "https://www.youtube.com/watch?v=VIDEO_ID"
-    }
-]
-```
+The `playlist.json` file is **automatically created** when you run the downloader. No manual setup needed!
 
-Then run:
+Just run:
 ```bash
 python match_transcripts.py
 ```
+
+This will compare your downloaded files against the playlist and show any missing videos.
 
 ### 3. Download Missing Videos Only
 
@@ -77,7 +72,8 @@ python download_missing.py
 ├── requirements.txt           # Python dependencies
 ├── README.md                  # This file
 ├── transcripts/               # Downloaded transcripts (auto-created)
-├── processed_videos.txt       # History of downloaded videos (auto-created)
+├── playlist.json              # Playlist metadata (auto-created)
+├── processed_videos.txt       # History of successful downloads (auto-created)
 └── cookies.txt                # Optional: Browser cookies for restricted content
 ```
 
@@ -109,7 +105,7 @@ This tool includes multiple anti-ban measures:
 - **Batch Breaks**: Takes longer pauses every N videos
 - **Human-like Timing**: Micro-delays to simulate real browsing
 - **IP Block Detection**: Automatically pauses for 10 minutes if blocked
-- **Auto-Retry**: Retries failed downloads after cooldown
+- **Smart Retry**: Only successful downloads are saved to history - failed ones will be retried on next run
 
 ## 📋 Output Format
 

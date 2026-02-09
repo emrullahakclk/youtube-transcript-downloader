@@ -263,13 +263,12 @@ def main():
                         consecutive_errors = 0
                         break # Success, move to next video
                     else:
-                        print("    [ERROR] Parse failed.")
-                        save_history(video_id)
+                        print("    [ERROR] Parse failed - will retry next run.")
                         fail_count += 1
                         break # Failed parse, move to next
                 else:
                     # No transcript available (and no exception raised)
-                    save_history(video_id)
+                    print("    [WARN] No transcript available - will retry next run.")
                     fail_count += 1
                     break # Move to next
 
@@ -283,8 +282,7 @@ def main():
                     print("    Action: Retrying same video...")
                     continue # Retry SAME video
                 else:
-                    print(f"    [ERROR] Unexpected: {err}")
-                    save_history(video_id)
+                    print(f"    [ERROR] Unexpected: {err} - will retry next run.")
                     fail_count += 1
                     break
 

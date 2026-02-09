@@ -3,6 +3,7 @@ import sys
 import time
 import random
 import re
+import json
 import yt_dlp
 import requests
 import http.cookiejar
@@ -206,6 +207,30 @@ def main():
     
     # 2. History Filter
     history = load_history()
+    
+    # --- AUTO-SAVE PLAYLIST JSON ---
+    # Save the full playlist metadata for the matching script
+    print("[Info] Saving playlist metadata to 'playlist.json' for future matching...")
+    playlist_data = []
+    for e in entries:
+        # Create the format expected by match_transcripts.py
+        vid_url = e.get('webpage_url')
+        if not vid_url and e.get('id'):
+            vid_url = f"https://www.youtube.com/watch?v={e.get('id')}"
+            
+        playlist_data.append({
+            "Title": e.get('title', 'Unknown'),
+            "Video url": vid_url
+        })
+        
+    try:
+        with open("playlist.json", "w", encoding="utf-8") as f:
+            json.dump(playlist_data, f, indent=4, ensure_ascii=False)
+        print("    [SUCCESS] Saved playlist.json")
+    except Exception as e:
+        print(f"    [WARN] Could not save playlist.json: {e}")
+    # -------------------------------
+
     queue = [e for e in entries if e and e.get('id') and e.get('id') not in history]
     print(f"Skipping {len(history)} items. Queue: {len(queue)}")
     

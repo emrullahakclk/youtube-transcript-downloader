@@ -15,7 +15,7 @@ A powerful Python toolkit for downloading YouTube video transcripts from playlis
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/youtube-transcript-downloader.git
+git clone https://github.com/emrullahakclk/youtube-transcript-downloader.git
 cd youtube-transcript-downloader
 
 # Install dependencies
